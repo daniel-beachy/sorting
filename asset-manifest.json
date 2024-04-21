@@ -1,15 +1,13 @@
 {
   "files": {
-    "main.css": "/sorting/static/css/main.53800f0b.css",
-    "main.js": "/sorting/static/js/main.8b449083.js",
-    "static/media/queen-black.png": "/sorting/static/media/queen-black.91645c65415445eef0a7.png",
-    "static/media/snail.png": "/sorting/static/media/snail.8e67942a6b6e065c5db4.png",
+    "main.css": "/sorting/static/css/main.596bba84.css",
+    "main.js": "/sorting/static/js/main.a0d1ce2c.js",
     "index.html": "/sorting/index.html",
-    "main.53800f0b.css.map": "/sorting/static/css/main.53800f0b.css.map",
-    "main.8b449083.js.map": "/sorting/static/js/main.8b449083.js.map"
+    "main.596bba84.css.map": "/sorting/static/css/main.596bba84.css.map",
+    "main.a0d1ce2c.js.map": "/sorting/static/js/main.a0d1ce2c.js.map"
   },
   "entrypoints": [
-    "static/css/main.53800f0b.css",
-    "static/js/main.8b449083.js"
+    "static/css/main.596bba84.css",
+    "static/js/main.a0d1ce2c.js"
   ]
 }
