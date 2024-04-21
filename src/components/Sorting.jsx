@@ -25,9 +25,13 @@ const Sorting = () => {
     setSliderValue(event.target.value);
   };
 
+  const generateNewArray = () => {
+    setBarValues(randomizeBars(sliderValue));
+  };
+
   const randomizeBars = (numValues) => {
     const newBars = [];
-    const min = 5;
+    const min = 1;
     const max = 100;
     while (newBars.length < (numValues > 4 ? numValues : 4)) {
       const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -49,7 +53,7 @@ const Sorting = () => {
           </Form>
         </Col>
         <Col xs="auto" className="p-2 me-4">
-          <Button variant="secondary" onClick={() => {}}>
+          <Button variant="secondary" onClick={generateNewArray}>
             New Array
           </Button>
         </Col>
@@ -72,7 +76,9 @@ const Sorting = () => {
               <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
               <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item>
             </DropdownButton>
-            <Button>Sort!</Button>
+            <Button disabled={selectedAlgorithm === "Select algorithm"}>
+              Sort!
+            </Button>
           </ButtonGroup>
         </Col>
         <Col xs="auto" className="p-2">
