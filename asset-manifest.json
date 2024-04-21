@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sorting/static/css/main.53800f0b.css",
+    "main.js": "/sorting/static/js/main.8b449083.js",
+    "static/media/queen-black.png": "/sorting/static/media/queen-black.91645c65415445eef0a7.png",
+    "static/media/snail.png": "/sorting/static/media/snail.8e67942a6b6e065c5db4.png",
+    "index.html": "/sorting/index.html",
+    "main.53800f0b.css.map": "/sorting/static/css/main.53800f0b.css.map",
+    "main.8b449083.js.map": "/sorting/static/js/main.8b449083.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.53800f0b.css",
+    "static/js/main.8b449083.js"
+  ]
+}
