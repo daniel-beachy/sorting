@@ -23,33 +23,26 @@ const Sorting = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] =
     useState("Select algorithm");
   const [animationSpeed, setAnimationSpeed] = useState("normal");
+  const [currentlyAnimating, setCurrentlyAnimating] = useState(false);
 
   const handleAlgoChange = (sortingAlgo) => {
     setSelectedAlgorithm(sortingAlgo);
+  };
+
+  const updateAnimationBool = (isAnimating) => {
+    setCurrentlyAnimating(isAnimating);
   };
 
   const handleRangeChange = (event) => {
     setSliderValue(event.target.value);
   };
 
+  useEffect(() => {
+    setSortingSteps([{ algo: "none", barValues: randomizeBars(sliderValue) }]);
+  }, [sliderValue]);
+
   const generateNewArray = () => {
     setSortingSteps([{ algo: "none", barValues: randomizeBars(sliderValue) }]);
-  };
-
-  const handleSort = () => {
-    if (selectedAlgorithm === "Bubble Sort") {
-      setSortingSteps(
-        bubbleSort(sortingSteps[sortingSteps.length - 1].barValues)
-      );
-    } else if (selectedAlgorithm === "Insertion Sort") {
-      setSortingSteps(
-        insertionSort(sortingSteps[sortingSteps.length - 1].barValues)
-      );
-    } else if (selectedAlgorithm === "Selection Sort") {
-      setSortingSteps(
-        selectionSort(sortingSteps[sortingSteps.length - 1].barValues)
-      );
-    }
   };
 
   const randomizeBars = (numValues) => {
@@ -63,9 +56,16 @@ const Sorting = () => {
     return newBars;
   };
 
-  useEffect(() => {
-    setSortingSteps([{ algo: "none", barValues: randomizeBars(sliderValue) }]);
-  }, [sliderValue]);
+  const handleSort = () => {
+    const baseArray = currentlyAnimating ? 0 : sortingSteps.length - 1;
+    if (selectedAlgorithm === "Bubble Sort") {
+      setSortingSteps(bubbleSort(sortingSteps[baseArray].barValues));
+    } else if (selectedAlgorithm === "Insertion Sort") {
+      setSortingSteps(insertionSort(sortingSteps[baseArray].barValues));
+    } else if (selectedAlgorithm === "Selection Sort") {
+      setSortingSteps(selectionSort(sortingSteps[baseArray].barValues));
+    }
+  };
 
   const getSpeedFactor = (arrLength) => {
     const minLength = 4;
@@ -160,7 +160,11 @@ const Sorting = () => {
         </Col>
       </Row>
       {sortingSteps && sortingSteps.length > 0 && (
-        <SortingAnimation steps={sortingSteps} waitTime={getWaitTime()} />
+        <SortingAnimation
+          steps={sortingSteps}
+          waitTime={getWaitTime()}
+          onAnimationChange={updateAnimationBool}
+        />
       )}
     </Container>
   );
