@@ -8,23 +8,23 @@ function insertionSort(arr) {
       algo: "insertion",
       barValues: [...arr],
       currBlue: i,
-      currYellow: j,
+      curr: i,
     });
     while (j > -1 && current < arr[j]) {
-      arr[j + 1] = arr[j];
-      j--;
       steps.push({
         algo: "insertion",
         barValues: [...arr],
-        currBlue: i,
-        currYellow: j,
+        currBlue: j,
+        curr: i,
       });
+      arr[j + 1] = arr[j];
+      j--;
     }
     arr[j + 1] = current;
     steps.push({
       algo: "insertion",
       barValues: [...arr],
-      currBlue: i,
+      curr: i,
     });
   }
 

@@ -40,9 +40,7 @@ const RenderBars = ({ displayValues }) => {
         background = "bg-sorting-green";
       } else if (index === displayValues.currBlue) {
         background = "bg-sorting-blue";
-      } else if (index === displayValues.currYellow) {
-        background = "bg-sorting-yellow";
-      } else if (index < displayValues.currBlue) {
+      } else if (index <= displayValues.curr) {
         background = "bg-sorting-green";
       }
     } else if (displayValues.algo === "selection") {
@@ -66,7 +64,7 @@ const RenderBars = ({ displayValues }) => {
       >
         {barWidth > 20 && (
           <p
-            className="text-primary m-0"
+            className="text-secondary m-0"
             style={{ fontSize: `${barWidth * 0.55}px` }}
           >
             {size}
