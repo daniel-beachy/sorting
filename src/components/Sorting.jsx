@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import RenderBars from "./RenderBars";
+import snail from "./img/snail.png";
+import rabbit from "./img/rabbit.png";
+import rocket from "./img/rocket.png";
+import bubbleSort from "./algorithms/bubbleSort";
+import insertionSort from "./algorithms/insertionSort";
+import selectionSort from "./algorithms/selectionSort";
+import SortingAnimation from "./SortingAnimation";
 import {
   Button,
   ButtonGroup,
@@ -13,9 +19,10 @@ import {
 
 const Sorting = () => {
   const [sliderValue, setSliderValue] = useState(50);
-  const [barValues, setBarValues] = useState([]);
+  const [sortingSteps, setSortingSteps] = useState();
   const [selectedAlgorithm, setSelectedAlgorithm] =
     useState("Select algorithm");
+  const [animationSpeed, setAnimationSpeed] = useState("normal");
 
   const handleAlgoChange = (sortingAlgo) => {
     setSelectedAlgorithm(sortingAlgo);
@@ -26,14 +33,30 @@ const Sorting = () => {
   };
 
   const generateNewArray = () => {
-    setBarValues(randomizeBars(sliderValue));
+    setSortingSteps([{ algo: "none", barValues: randomizeBars(sliderValue) }]);
+  };
+
+  const handleSort = () => {
+    if (selectedAlgorithm === "Bubble Sort") {
+      setSortingSteps(
+        bubbleSort(sortingSteps[sortingSteps.length - 1].barValues)
+      );
+    } else if (selectedAlgorithm === "Insertion Sort") {
+      setSortingSteps(
+        insertionSort(sortingSteps[sortingSteps.length - 1].barValues)
+      );
+    } else if (selectedAlgorithm === "Selection Sort") {
+      setSortingSteps(
+        selectionSort(sortingSteps[sortingSteps.length - 1].barValues)
+      );
+    }
   };
 
   const randomizeBars = (numValues) => {
     const newBars = [];
     const min = 1;
     const max = 100;
-    while (newBars.length < (numValues > 4 ? numValues : 4)) {
+    while (newBars.length < (numValues > 2 ? numValues : 2) * 2) {
       const randomValue = Math.floor(Math.random() * (max - min + 1)) + min;
       newBars.push(randomValue);
     }
@@ -41,18 +64,46 @@ const Sorting = () => {
   };
 
   useEffect(() => {
-    setBarValues(randomizeBars(sliderValue));
+    setSortingSteps([{ algo: "none", barValues: randomizeBars(sliderValue) }]);
   }, [sliderValue]);
+
+  const getSpeedFactor = (arrLength) => {
+    const minLength = 4;
+    const maxLength = 200;
+    const minFactor = 1;
+    const maxFactor = 5;
+
+    const factor =
+      minFactor +
+      ((arrLength - minLength) * (maxFactor - minFactor)) /
+        (maxLength - minLength);
+
+    return Math.min(Math.max(factor, minFactor), maxFactor);
+  };
+
+  const getWaitTime = () => {
+    const factor = getSpeedFactor(sortingSteps[0].barValues.length);
+    switch (animationSpeed) {
+      case "slow":
+        return 200 / factor;
+      case "normal":
+        return 75 / factor;
+      case "fast":
+        return 10 / factor;
+      default:
+        return 75 / factor;
+    }
+  };
 
   return (
     <Container fluid className="d-flex flex-column vh-100">
       <Row className="justify-content-center bg-dark">
-        <Col xs="auto" className="pt-2 px-2 d-flex align-items-center">
+        <Col sm="auto" className="pt-2 px-2 d-flex align-items-center">
           <Form>
             <Form.Range onChange={handleRangeChange} />
           </Form>
         </Col>
-        <Col xs="auto" className="p-2 me-4">
+        <Col sm="auto" className="p-2">
           <Button variant="secondary" onClick={generateNewArray}>
             New Array
           </Button>
@@ -67,29 +118,50 @@ const Sorting = () => {
               style={{ minWidth: "170px" }}
               variant="secondary"
             >
+              <Dropdown.Item eventKey="Bubble Sort">Bubble Sort</Dropdown.Item>
               <Dropdown.Item eventKey="Insertion Sort">
                 Insertion Sort
               </Dropdown.Item>
               <Dropdown.Item eventKey="Selection Sort">
                 Selection Sort
               </Dropdown.Item>
-              <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
-              <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item>
+              {/* <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
+              <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item> */}
             </DropdownButton>
-            <Button disabled={selectedAlgorithm === "Select algorithm"}>
+            <Button
+              onClick={handleSort}
+              disabled={selectedAlgorithm === "Select algorithm"}
+            >
               Sort!
             </Button>
           </ButtonGroup>
         </Col>
-        <Col xs="auto" className="p-2">
-          <Button variant="danger" onClick={() => {}}>
-            Clear
-          </Button>
+        <Col xs={12} sm="auto" className="p-2 justify-content-center d-flex">
+          <ButtonGroup>
+            {["slow", "normal", "fast"].map((speed) => (
+              <Button
+                key={speed}
+                variant={animationSpeed === speed ? "light-blue" : "primary"}
+                onClick={() => setAnimationSpeed(speed)}
+                style={{ maxHeight: "38px" }}
+              >
+                {speed === "slow" && (
+                  <img src={snail} style={{ maxHeight: "25px" }} alt={speed} />
+                )}
+                {speed === "normal" && (
+                  <img src={rabbit} style={{ maxHeight: "25px" }} alt={speed} />
+                )}
+                {speed === "fast" && (
+                  <img src={rocket} style={{ maxHeight: "25px" }} alt={speed} />
+                )}
+              </Button>
+            ))}
+          </ButtonGroup>
         </Col>
       </Row>
-      <Row className="p-3 bg-secondary flex-grow-1">
-        <RenderBars sizes={barValues} />
-      </Row>
+      {sortingSteps && sortingSteps.length > 0 && (
+        <SortingAnimation steps={sortingSteps} waitTime={getWaitTime()} />
+      )}
     </Container>
   );
 };
