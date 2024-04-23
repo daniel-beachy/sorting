@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import snail from "./img/snail.png";
 import rabbit from "./img/rabbit.png";
 import rocket from "./img/rocket.png";
+import homeIcon from "./img/home.png";
 import bubbleSort from "./algorithms/bubbleSort";
 import insertionSort from "./algorithms/insertionSort";
 import selectionSort from "./algorithms/selectionSort";
@@ -100,18 +101,25 @@ const Sorting = () => {
 
   return (
     <Container fluid className="d-flex flex-column vh-100">
+      <Row className="position-relative bg-dark">
+        <Col className="pt-3 d-flex align-items-center position-absolute">
+          <a href="http://daniel-beachy.github.io">
+            <img style={{ maxHeight: "25px" }} src={homeIcon} alt="Home" />
+          </a>
+        </Col>
+      </Row>
       <Row className="justify-content-center bg-dark">
-        <Col sm="auto" className="pt-2 px-2 d-flex align-items-center">
+        <Col xs="auto" className="pt-2 px-2 d-flex align-items-center">
           <Form>
             <Form.Range onChange={handleRangeChange} />
           </Form>
         </Col>
-        <Col sm="auto" className="p-2">
+        <Col xs="auto" className="p-2 justify-content-center d-flex">
           <Button variant="secondary" onClick={generateNewArray}>
             New Array
           </Button>
         </Col>
-        <Col sm="auto" className="p-2">
+        <Col xs={12} sm="auto" className="p-2 justify-content-center d-flex">
           <ButtonGroup>
             <DropdownButton
               as={ButtonGroup}
