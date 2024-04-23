@@ -51,6 +51,22 @@ const RenderBars = ({ displayValues }) => {
       } else if (index === displayValues.currYellow) {
         background = "bg-sorting-yellow";
       }
+    } else if (displayValues.algo === "merge") {
+      if (displayValues.allGreen) {
+        background = "bg-sorting-green";
+      } else if (index === displayValues.currBlue) {
+        background = "bg-sorting-blue";
+      } else if (
+        index === displayValues.currStart ||
+        index === displayValues.currEnd
+      ) {
+        background = "bg-sorting-yellow";
+      } else if (
+        index === displayValues.currLeftComp ||
+        index === displayValues.currRightComp
+      ) {
+        background = "bg-danger";
+      }
     }
 
     return (

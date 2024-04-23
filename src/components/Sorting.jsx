@@ -5,6 +5,7 @@ import rocket from "./img/rocket.png";
 import bubbleSort from "./algorithms/bubbleSort";
 import insertionSort from "./algorithms/insertionSort";
 import selectionSort from "./algorithms/selectionSort";
+import mergeSort from "./algorithms/mergeSort";
 import SortingAnimation from "./SortingAnimation";
 import {
   Button,
@@ -64,6 +65,8 @@ const Sorting = () => {
       setSortingSteps(insertionSort(sortingSteps[baseArray].barValues));
     } else if (selectedAlgorithm === "Selection Sort") {
       setSortingSteps(selectionSort(sortingSteps[baseArray].barValues));
+    } else if (selectedAlgorithm === "Merge Sort") {
+      setSortingSteps(mergeSort(sortingSteps[baseArray].barValues));
     }
   };
 
@@ -125,8 +128,8 @@ const Sorting = () => {
               <Dropdown.Item eventKey="Selection Sort">
                 Selection Sort
               </Dropdown.Item>
-              {/* <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
-              <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item> */}
+              <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
+              {/* <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item> */}
             </DropdownButton>
             <Button
               onClick={handleSort}
