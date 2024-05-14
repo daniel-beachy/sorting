@@ -101,74 +101,107 @@ const Sorting = () => {
 
   return (
     <Container fluid className="d-flex flex-column vh-100">
-      <a
-        href="http://daniel-beachy.github.io"
-        className="pt-3 d-flex align-items-center position-absolute"
-      >
-        <img style={{ maxHeight: "25px" }} src={homeIcon} alt="Home" />
-      </a>
-      <Row className="justify-content-center bg-dark">
-        <Col xs="auto" className="pt-2 px-2 d-flex align-items-center">
-          <Form>
-            <Form.Range onChange={handleRangeChange} />
-          </Form>
+      <Row className="bg-dark">
+        <Col xs={1}>
+          <a
+            href="http://daniel-beachy.github.io"
+            className="pt-3 d-flex align-items-center position-absolute"
+          >
+            <img style={{ maxHeight: "25px" }} src={homeIcon} alt="Home" />
+          </a>
         </Col>
-        <Col xs="auto" className="p-2 justify-content-center d-flex">
-          <Button variant="secondary" onClick={generateNewArray}>
-            New Array
-          </Button>
-        </Col>
-        <Col xs={12} sm="auto" className="p-2 justify-content-center d-flex">
-          <ButtonGroup>
-            <DropdownButton
-              as={ButtonGroup}
-              title={selectedAlgorithm}
-              id="bg-nested-dropdown"
-              onSelect={handleAlgoChange}
-              style={{ minWidth: "170px" }}
-              variant="secondary"
-            >
-              <Dropdown.Item eventKey="Bubble Sort">Bubble Sort</Dropdown.Item>
-              <Dropdown.Item eventKey="Insertion Sort">
-                Insertion Sort
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="Selection Sort">
-                Selection Sort
-              </Dropdown.Item>
-              <Dropdown.Item eventKey="Merge Sort">Merge Sort</Dropdown.Item>
-              {/* <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item> */}
-            </DropdownButton>
-            <Button
-              onClick={handleSort}
-              disabled={selectedAlgorithm === "Select algorithm"}
-            >
-              Sort!
-            </Button>
-          </ButtonGroup>
-        </Col>
-        <Col xs={12} sm="auto" className="p-2 justify-content-center d-flex">
-          <ButtonGroup>
-            {["slow", "normal", "fast"].map((speed) => (
-              <Button
-                key={speed}
-                variant={animationSpeed === speed ? "light-blue" : "primary"}
-                onClick={() => setAnimationSpeed(speed)}
-                style={{ maxHeight: "38px" }}
-              >
-                {speed === "slow" && (
-                  <img src={snail} style={{ maxHeight: "25px" }} alt={speed} />
-                )}
-                {speed === "normal" && (
-                  <img src={rabbit} style={{ maxHeight: "25px" }} alt={speed} />
-                )}
-                {speed === "fast" && (
-                  <img src={rocket} style={{ maxHeight: "25px" }} alt={speed} />
-                )}
+        <Col xs={10}>
+          <Row className="justify-content-center">
+            <Col xs="auto" className="pt-2 px-2 d-flex align-items-center">
+              <Form>
+                <Form.Range onChange={handleRangeChange} />
+              </Form>
+            </Col>
+            <Col xs="auto" className="p-2 justify-content-center d-flex">
+              <Button variant="secondary" onClick={generateNewArray}>
+                New Array
               </Button>
-            ))}
-          </ButtonGroup>
+            </Col>
+            <Col
+              xs={12}
+              sm="auto"
+              className="p-2 justify-content-center d-flex"
+            >
+              <ButtonGroup>
+                <DropdownButton
+                  as={ButtonGroup}
+                  title={selectedAlgorithm}
+                  id="bg-nested-dropdown"
+                  onSelect={handleAlgoChange}
+                  style={{ minWidth: "170px" }}
+                  variant="secondary"
+                >
+                  <Dropdown.Item eventKey="Bubble Sort">
+                    Bubble Sort
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="Insertion Sort">
+                    Insertion Sort
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="Selection Sort">
+                    Selection Sort
+                  </Dropdown.Item>
+                  <Dropdown.Item eventKey="Merge Sort">
+                    Merge Sort
+                  </Dropdown.Item>
+                  {/* <Dropdown.Item eventKey="Quick Sort">Quick Sort</Dropdown.Item> */}
+                </DropdownButton>
+                <Button
+                  onClick={handleSort}
+                  disabled={selectedAlgorithm === "Select algorithm"}
+                >
+                  Sort!
+                </Button>
+              </ButtonGroup>
+            </Col>
+            <Col
+              xs={12}
+              sm="auto"
+              className="p-2 justify-content-center d-flex"
+            >
+              <ButtonGroup>
+                {["slow", "normal", "fast"].map((speed) => (
+                  <Button
+                    key={speed}
+                    variant={
+                      animationSpeed === speed ? "light-blue" : "primary"
+                    }
+                    onClick={() => setAnimationSpeed(speed)}
+                  >
+                    {speed === "slow" && (
+                      <img
+                        src={snail}
+                        style={{ maxHeight: "25px" }}
+                        alt={speed}
+                      />
+                    )}
+                    {speed === "normal" && (
+                      <img
+                        src={rabbit}
+                        style={{ maxHeight: "25px" }}
+                        alt={speed}
+                      />
+                    )}
+                    {speed === "fast" && (
+                      <img
+                        src={rocket}
+                        style={{ maxHeight: "25px" }}
+                        alt={speed}
+                      />
+                    )}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </Col>
+          </Row>
         </Col>
+        <Col xs={1}></Col>
       </Row>
+
       {sortingSteps && sortingSteps.length > 0 && (
         <SortingAnimation
           steps={sortingSteps}
